@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { CheckCircle2, Clock3, LayoutGrid, Plus, Star } from 'lucide-react';
+import { CheckCircle2, Clock3, LayoutGrid, Plus, Search, Star } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import AppShell from '../components/AppShell.jsx';
 import Modal from '../components/Modal.jsx';
@@ -60,6 +60,7 @@ export default function WorkspacePage() {
         <div><span className="eyebrow">{new Date().toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric' })}</span><h1>Good {new Date().getHours() < 12 ? 'morning' : new Date().getHours() < 18 ? 'afternoon' : 'evening'}, {session.user.name.split(' ')[0]}.</h1><p>Here's where the work is moving today.</p></div>
         {canCreate && <button className="primary-button" onClick={() => { setForm({ name: '', description: '', color: COLORS[0] }); setModal('new'); }}><Plus size={18} />New board</button>}
       </section>
+      <div className="mobile-dashboard-search"><Search size={18} /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search boards…" aria-label="Search boards" /></div>
       <section className="stat-row">
         <div className="stat-card"><span className="stat-icon lavender"><LayoutGrid /></span><div><b>{boards.length}</b><span>Active boards</span></div></div>
         <div className="stat-card"><span className="stat-icon peach"><Clock3 /></span><div><b>{stats.cards - stats.done}</b><span>Open cards</span></div></div>

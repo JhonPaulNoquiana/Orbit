@@ -55,6 +55,12 @@ export default function AppShell({ children, workspace, workspaces = [], onWorks
         </div>
       </aside>
       <main className="main-content">{children}</main>
+      <nav className="mobile-nav" aria-label="Mobile navigation">
+        <Link to="/" className={location.pathname === '/' ? 'active' : ''}><LayoutDashboard size={20} /><span>Boards</span></Link>
+        <button onClick={onMembers}><Users size={20} /><span>Members</span></button>
+        <button onClick={onActivity}><Activity size={20} /><span>Activity</span></button>
+        {onSettings && <button onClick={onSettings}><Settings size={20} /><span>Settings</span></button>}
+      </nav>
     </div>
   );
 }
