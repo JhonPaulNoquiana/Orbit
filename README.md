@@ -55,4 +55,6 @@ Deployment steps:
 4. Review the `orbit-app` and `orbit-db` resources, then apply the Blueprint.
 5. Open the generated `orbit-app.onrender.com` URL after both resources finish deploying.
 
+The frontend build explicitly installs development dependencies because Vite is a build-time tool and Render builds with `NODE_ENV=production`.
+
 The Blueprint uses free plans for initial testing. Review Render's current free-tier limits and upgrade the database before storing production data.
