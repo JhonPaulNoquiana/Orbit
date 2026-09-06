@@ -36,3 +36,23 @@ The API runs at `http://localhost:4000`. On first launch, it creates the configu
 - `npm run build` — create the frontend production bundle
 - `npm test` — run backend tests and verify a frontend production build
 - `npm start` — start the API only
+
+## Deploy to Render
+
+The root `render.yaml` defines the complete Render deployment:
+
+- One Node web service that serves the Express API and compiled React application
+- One separate managed Render PostgreSQL database
+- An automatically generated production `JWT_SECRET`
+- A health check at `/api/health`
+- React Router fallback support for direct board URLs
+
+Deployment steps:
+
+1. Commit and push the repository to GitHub.
+2. In Render, choose **New → Blueprint**.
+3. Connect the GitHub repository and select `render.yaml`.
+4. Review the `orbit-app` and `orbit-db` resources, then apply the Blueprint.
+5. Open the generated `orbit-app.onrender.com` URL after both resources finish deploying.
+
+The Blueprint uses free plans for initial testing. Review Render's current free-tier limits and upgrade the database before storing production data.

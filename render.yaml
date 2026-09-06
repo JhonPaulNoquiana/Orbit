@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: orbit-app
+    runtime: node
+    region: singapore
+    plan: free
+    buildCommand: npm ci --prefix backend && npm ci --prefix frontend && npm --prefix frontend run build
+    startCommand: npm --prefix backend start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: orbit-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+
+databases:
+  - name: orbit-db
+    region: singapore
+    plan: free
+    databaseName: orbit
+    user: orbit_user
+    postgresMajorVersion: "17"
