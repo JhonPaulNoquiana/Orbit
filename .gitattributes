@@ -1,0 +1,2 @@
+# Ensure GitHub Linguist counts the source stylesheet as handwritten CSS.
+frontend/src/styles/global.css linguist-language=CSS -linguist-generated -linguist-vendored linguist-detectable
