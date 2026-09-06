@@ -44,14 +44,14 @@ export default function AppShell({ children, workspace, workspaces = [], onWorks
           </> : <ChevronDown size={15} aria-hidden="true" />}
         </div>
         <nav>
-          <Link to="/" className={location.pathname === '/' ? 'active' : ''}><LayoutDashboard size={19} />Boards</Link>
-          <button onClick={onMembers}><Users size={19} />Members</button>
-          <button onClick={onActivity}><Activity size={19} />Activity</button>
-          {onSettings && <button onClick={onSettings}><Settings size={19} />Workspace settings</button>}
+          <Link to="/" className={location.pathname === '/' ? 'active' : ''} title="Boards"><LayoutDashboard size={19} /><span>Boards</span></Link>
+          <button onClick={onMembers} title="Members"><Users size={19} /><span>Members</span></button>
+          <button onClick={onActivity} title="Activity"><Activity size={19} /><span>Activity</span></button>
+          {onSettings && <button onClick={onSettings} title="Workspace settings"><Settings size={19} /><span>Workspace settings</span></button>}
         </nav>
         <div className="sidebar-foot">
           <div className="tip-card"><span>✦</span><strong>A calmer way to ship.</strong><p>Keep work visible, ownership clear, and momentum steady.</p></div>
-          <button className="logout" onClick={logout}><LogOut size={18} />Log out</button>
+          <button className="logout" onClick={logout} title="Log out"><LogOut size={18} /><span>Log out</span></button>
         </div>
       </aside>
       <main className="main-content">{children}</main>

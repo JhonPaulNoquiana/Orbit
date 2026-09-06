@@ -206,3 +206,15 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible { outline: 
   .board-footer span:nth-child(2) { display: none; }
   .avatar-stack .avatar:nth-child(n+4) { display: none; }
 }
+
+@media (min-width: 681px) and (max-width: 1000px) {
+  .sidebar { width: 75px; overflow: hidden; padding: 20px 10px 16px; }
+  .sidebar .workspace-switcher { width: 100%; min-width: 0; justify-content: center; padding: 7px 0 18px; }
+  .sidebar .workspace-logo { flex: 0 0 39px; width: 39px; height: 39px; }
+  .sidebar nav { width: 100%; }
+  .sidebar nav a, .sidebar nav button, .sidebar .logout { width: 100%; min-width: 0; min-height: 46px; justify-content: center; gap: 0; padding: 11px 0; }
+  .sidebar nav span, .sidebar .logout span { display: none; }
+  .sidebar nav svg, .sidebar .logout svg { flex: 0 0 auto; }
+  .sidebar-foot { width: 100%; }
+  .sidebar .logout { margin-top: 8px; }
+}
