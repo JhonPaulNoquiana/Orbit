@@ -1,4 +1,23 @@
-const BASE_URL = import.meta.env.VITE_API_URL || '/api';
+const BASE_URL = (import.meta.env.VITE_API_URL || '/api').replace(/\/$/, '');
+
+export async function checkHealth({ timeout = 8000 } = {}) {
+  const controller = new AbortController();
+  const timeoutId = window.setTimeout(() => controller.abort(), timeout);
+
+  try {
+    const response = await fetch(`${BASE_URL}/health`, {
+      cache: 'no-store',
+      signal: controller.signal,
+    });
+    if (!response.ok) throw new Error(`Server returned ${response.status}`);
+
+    const payload = await response.json();
+    if (payload?.status !== 'ok') throw new Error('Server is not ready');
+    return payload;
+  } finally {
+    window.clearTimeout(timeoutId);
+  }
+}
 
 export async function api(path, options = {}) {
   const token = localStorage.getItem('orbit_token');

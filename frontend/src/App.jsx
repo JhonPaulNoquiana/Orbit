@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from './hooks/useAuth.jsx';
 import AuthPage from './pages/AuthPage.jsx';
 import WorkspacePage from './pages/WorkspacePage.jsx';
 import BoardPage from './pages/BoardPage.jsx';
+import ServerGate from './components/ServerGate.jsx';
 
 function AppRoutes() {
   const { session, loading } = useAuth();
@@ -18,5 +19,9 @@ function AppRoutes() {
 }
 
 export default function App() {
-  return <AuthProvider><AppRoutes /></AuthProvider>;
+  return (
+    <ServerGate>
+      <AuthProvider><AppRoutes /></AuthProvider>
+    </ServerGate>
+  );
 }

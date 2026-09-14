@@ -41,7 +41,8 @@ The API runs at `http://localhost:4000`. On first launch, it creates the configu
 
 The root `render.yaml` defines the complete Render deployment:
 
-- One Node web service that serves the Express API and compiled React application
+- One static frontend service (`orbit-web`) that remains available and displays the startup screen
+- One Node web service (`orbit-app`) for the Express API
 - One separate managed Render PostgreSQL database
 - An automatically generated production `JWT_SECRET`
 - A health check at `/api/health`
@@ -52,9 +53,19 @@ Deployment steps:
 1. Commit and push the repository to GitHub.
 2. In Render, choose **New → Blueprint**.
 3. Connect the GitHub repository and select `render.yaml`.
-4. Review the `orbit-app` and `orbit-db` resources, then apply the Blueprint.
-5. Open the generated `orbit-app.onrender.com` URL after both resources finish deploying.
+4. Review the `orbit-web`, `orbit-app`, and `orbit-db` resources, then apply the Blueprint.
+5. Copy the public URL of `orbit-app`.
+6. In the `orbit-web` service, set `VITE_API_URL` to the backend URL followed by `/api`, for example:
 
-The frontend build explicitly installs development dependencies because Vite is a build-time tool and Render builds with `NODE_ENV=production`.
+   ```text
+   https://orbit-app.onrender.com/api
+   ```
+
+7. Redeploy `orbit-web` after saving the environment variable. Vite places this value into the production bundle at build time.
+8. Share and open the generated `orbit-web.onrender.com` URL. This is the public application URL; it can show the loading screen immediately while `orbit-app` wakes from an idle state.
+
+The API accepts requests from Render-hosted frontend URLs automatically. If the frontend later uses a custom domain, add that exact origin to the backend's `CLIENT_URL` environment variable (multiple origins may be comma-separated), then redeploy the backend.
+
+The frontend builds explicitly install development dependencies because Vite is a build-time tool and Render builds with `NODE_ENV=production`.
 
 The Blueprint uses free plans for initial testing. Review Render's current free-tier limits and upgrade the database before storing production data.

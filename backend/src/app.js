@@ -9,7 +9,18 @@ import { authenticate } from './middleware/auth.js';
 
 export const app = express();
 
-app.use(cors({ origin: process.env.CLIENT_URL?.split(',') || 'http://localhost:5173' }));
+const configuredOrigins = (process.env.CLIENT_URL || 'http://localhost:5173,http://127.0.0.1:5173')
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+app.use(cors({
+  origin(origin, callback) {
+    const isRenderFrontend = process.env.NODE_ENV === 'production'
+      && /^https:\/\/[a-z0-9-]+\.onrender\.com$/i.test(origin || '');
+    callback(null, !origin || configuredOrigins.includes(origin) || isRenderFrontend);
+  },
+}));
 app.use(express.json({ limit: '1mb' }));
 
 app.get('/api/health', (_req, res) => res.json({ status: 'ok' }));
